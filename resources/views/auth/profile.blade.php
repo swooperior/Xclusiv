@@ -22,38 +22,41 @@
         </div>
     </div>
 @endsection
+
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-8" id="wall">
-
-                {{--            Use of card components foreach recent post with correct visibility.--}}
-                <div class="card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
+            <div class="col-md-8" id="wall">
+                @php($posts = \App\Models\Post::where('owner', $user->id)
+                    ->orderBy('id', 'desc')
+                    ->paginate(15)
+                )
+                @if(!is_null($posts))
+                    @foreach($posts as $post)
+                        @if($post->visible())
+                            <x-feed.post id="{{ $post->id }}" />
+                        @endif
+                    @endforeach
+                @endif
+                {{ $posts->links() }}
             </div>
 
-            <div class="col-4" id="gallery">
+            <div class="col-md-4" id="gallery">
                 {{--                    {{ $user->getImages() }}--}}
 
                 <div class="row">
                     <div class="col-6 pb-4">
-                        <img class="img-fluid" src="https://via.placeholder.com/300">
+                        <img class="img-fluid" src="http://via.placeholder.com/300">
                     </div>
                     <div class="col-6 pb-4">
-                        <img class="img-fluid" src="https://via.placeholder.com/300">
+                        <img class="img-fluid" src="http://via.placeholder.com/300">
                     </div>
                 </div> <div class="row">
                     <div class="col-6">
-                        <img class="img-fluid" src="https://via.placeholder.com/300">
+                        <img class="img-fluid" src="http://via.placeholder.com/300">
                     </div>
                     <div class="col-6">
-                        <img class="img-fluid" src="https://via.placeholder.com/300">
+                        <img class="img-fluid" src="http://via.placeholder.com/300">
                     </div>
                 </div>
             </div>

@@ -1,21 +1,12 @@
 @extends('layouts.app')
 @section('content')
     @if($post != null)
-        @php($user = \Illuminate\Support\Facades\Auth::user())
-        @php($owner = \App\Models\User::find($post->owner))
-
-        @php($access = in_array($user->id, $owner->whitelist))
-        @php($admin = $owner == $user ? true : false)
-
-
-        @if($access || $admin)
+        @if($post->visible())
             <div class="card">
                 <img class="card-img-top" src="{{\App\Utilities\CDN::get_media(null, $post->uri)}}">
-                <div class="card-title">
-                    {{$post->title}}
-                </div>
                 <div class="card-body">
-                    {{$post->body}}
+                    <h5 class="card-title">{{$post->title}}</h5>
+                    <p class="card-text"> {{$post->body}} </p>
                 </div>
             </div>
         @else
@@ -24,14 +15,6 @@
             </div>
 
         @endif
-
-
-
-
-
-
-
-
 
 
 

@@ -31,10 +31,19 @@ class PostsController extends Controller
         $file = null;
         $privacy = $request->get('privacy');
         $file = $request->file('file');
-        $file_loc = CDN::upload_media($user->id, $file);
+        if(!is_null($file)){
+            $file_loc = CDN::upload_media($user->id, $file);
+            $post->uri = $file_loc;
+        }
+        if(!is_null($request->get('title'))){
+            $post->title = $request->get('title');
+        }
+        if(!is_null($request->get('body'))){
+            $post->body = $request->get('body');
+        }
         $post->owner = $user->id;
         $post->privacy = $privacy;
-        $post->uri = $file_loc;
+
         $post->save();
 
         return(view('posts.upload'));

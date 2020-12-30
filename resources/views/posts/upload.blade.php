@@ -23,7 +23,7 @@
                         <input class="form-control" type="text" name="title" id="title">
                     </div>
                     <div class="form-group">
-{{--                        Change for wysiwyg textemtry--}}
+{{--                        Change for wysiwyg text entry--}}
                         <label for="body">Post Body:</label>
                         <input class="form-control" type="text" name="body" id="body">
                     </div>
@@ -31,9 +31,9 @@
                     <div class="form-group col">
                         <label for="privacy">Privacy Setting </label>
                             <select id="privacy" name="privacy">
-                                <option value="1">Exclusive</option>
+                                <option value="0">Exclusive</option>
+                                <option value="1">Public</option>
                                 <option value="2">Purchasable</option>
-                                <option value="3">Public</option>
                             </select>
                     </div>
                     <div class="form-group col" id="content-price">

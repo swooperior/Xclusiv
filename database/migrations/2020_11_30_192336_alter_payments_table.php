@@ -15,7 +15,7 @@ class AlterPaymentsTable extends Migration
     {
         Schema::table('payments', function (Blueprint $table) {
             $table->integer('user_id');
-            $table->integer('subscription_id');
+            $table->integer('subscription_id')->nullable()->default(null);
             $table->integer('content_id')->nullable()->default(null);
         });
     }
