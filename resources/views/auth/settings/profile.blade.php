@@ -34,6 +34,7 @@
                         <label for="bio">Bio (<span class="bioWordCount">300</span>/300)</label>
                         <textarea
                             name="bio"
+                            id="bio"
                             rows="5"
                             class="form-control bio"
                             maxlength="300"
@@ -47,24 +48,35 @@
         </div>
     </div>
     </div>
-        <script>
-            var $wc = $('.bioWordCount');
-            var $bio = $('.bio');
+
+@endsection
+        @section('body_bottom_scripts')
+            <script>
+                var $ckeditor = ClassicEditor
+                    .create( document.querySelector( '#bio' ) )
+                    .catch( error => {
+                        console.error( error );
+                    } );
+            </script>
+
+            <script>
+                var $wc = $('.bioWordCount');
+                var $bio = $('.bio');
 
 
-            $( document ).ready(function(){
-                $bio.on('change input', function(){
+                $( document ).ready(function(){
+                    $bio.on('change input', function(){
+                        bioWordCount();
+                    });
                     bioWordCount();
                 });
-                bioWordCount();
-            });
-            //Update the remaining character limit
-            function bioWordCount(){
-                var max = 300;
-                var count = $bio.val().length;
+                //Update the remaining character limit
+                function bioWordCount(){
+                    var max = 300;
+                    var count = $bio.val().length;
 
-                $wc.html(count);
-            }
-        </script>
+                    $wc.html(count);
+                }
+            </script>
 @endsection
 

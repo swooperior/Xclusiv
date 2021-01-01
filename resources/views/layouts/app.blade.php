@@ -27,6 +27,7 @@
     @yield('hero')
     <main>
         <div class="mt-2 container">
+            @include('layouts.inc.notifications')
             @yield('content')
         </div>
     </main>

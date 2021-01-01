@@ -17,7 +17,7 @@
                 </div>
             <div class="row">
                 <div class="col-sm-12 col-md-5 ">
-                    <button class="btn btn-secondary w-100" href="/settings/account">Account Settings</button>
+                    <a class="btn btn-secondary w-100" href="{{route('settings.account')}}">Account Settings</a>
                 </div>
                 <div class="col-sm-12 col-md-5 ">
                     <p><small>Update your email or password.</small></p>
@@ -25,7 +25,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-5 ">
-                    <button class="btn btn-secondary w-100" href="/settings/privacy">Privacy Settings</button>
+                    <a class="btn btn-secondary w-100" href="{{route('settings.privacy')}}">Privacy Settings</a>
                 </div>
                 <div class="col-sm-12 col-md-5 ">
                     <p><small>Edit your privacy settings, blacklist countries, allow/revoke user access.</small></p>
