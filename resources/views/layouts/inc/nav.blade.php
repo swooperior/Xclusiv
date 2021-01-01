@@ -33,7 +33,7 @@
                         <!-- Fix so profile thumb doesnt display in dropdown or thumb becomes hamburger instead. -->
                             <a id="navbarDropdown" class="d-inline-flex align-items-center flex-row nav-link mr-1 mt-1" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 @if(!is_null(Auth::user()))
-                                    {{ Auth::user()->username }} <img src="{{\App\Utilities\CDN::get_media(Auth::user()->id, Auth::user()->profile_image)  ?? 'https://via.placeholder.com/50'}}" class="ml-1 rounded-circle m-0 p-0" height="50px" width="50px" />
+                                    {{ Auth::user()->username }} <img src="{{\App\Utilities\CDN::get_media(null, Auth::user()->settings['profile_settings']['profile_image'])  ?? 'https://via.placeholder.com/50'}}" class="ml-1 rounded-circle m-0 p-0" height="50px" width="50px" />
                                 @endif
                             </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

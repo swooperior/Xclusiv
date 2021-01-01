@@ -2,9 +2,11 @@
 @section('content')
     @if($post != null)
         @if($post->visible())
-            <div class="card">
-                <img class="card-img-top" src="{{\App\Utilities\CDN::get_media(null, $post->uri)}}">
-                <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="img-fluid" src="{{\App\Utilities\CDN::get_media(null, $post->uri)}}">
+                </div>
+                <div class="col-md-6">
                     <h5 class="card-title">{{$post->title}}</h5>
                     <p class="card-text"> {!! strip_tags($post->body, '<b><i><u><h1><h2><h3><h4><h5><p><table><li><tr><td><th>') !!} </p>
                 </div>
