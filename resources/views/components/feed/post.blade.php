@@ -9,7 +9,7 @@
                     <h5 class="card-title">{{$post->title}}</h5>
                 @endif
                 @if(!is_null($post->body))
-                    <p class="card-text">{{$post->body}}</p>
+                    <p class="card-text">{!! strip_tags($post->body, '<b><i><u><h1><h2><h3><h4><h5><p><table><li><tr><td><th>') !!}</p>
                 @endif
             </div>
         </div>

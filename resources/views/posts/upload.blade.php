@@ -25,7 +25,7 @@
                     <div class="form-group">
 {{--                        Change for wysiwyg text entry--}}
                         <label for="body">Post Body:</label>
-                        <input class="form-control" type="text" name="body" id="body">
+                        <textarea id="body_text" name="body_text"></textarea>
                     </div>
                     <div class="row">
                     <div class="form-group col">
@@ -53,22 +53,32 @@
         </form>
     @endif
     </div>
+@endsection
+@section('body_bottom_scripts')
+    <script>
+        var $ckeditor = ClassicEditor
+            .create( document.querySelector( '#body_text' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+
     <script>
         const priceOpts = $('#content-price');
         const privacySelect = $('#privacy');
         $(document).ready(function(){
-            if(privacySelect.value != 'purchasable'){
+            if(privacySelect.value != 2){
                 priceOpts.hide();
             }
             privacySelect.on('change keypress', function(){
                 priceOpts.hide();
-                if(this.value == 'purchasable'){
+                if(this.value == 2){
                     priceOpts.show();
                 }
             });
             $('#price').on('change', function(){
-               this.value = parseFloat(this.value).toFixed(2);
-               console.log(this.value);
+                this.value = parseFloat(this.value).toFixed(2);
+                console.log(this.value);
             });
         });
     </script>

@@ -7,6 +7,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\FansController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +60,12 @@ Route::prefix('posts')->group(function() {
 });
 /* End of post routes */
 
-
+/* Fans Routes */
+Route::prefix('fans')->group(function() {
+    Route::get('/',[FansController::class, 'main'])->name('fans.main');
+    //Route::get('/{user}',[FansController::class, 'byuser'])->name('posts.user');
+});
+/* End of fans routes */
 
 //ToDo;
 //Settings routes

@@ -10,7 +10,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                @guest
+                @else
+                    <a class="nav-link" href="{{ route('new') }}">{{ __('+ Post') }}</a>
+                @endguest
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -36,6 +39,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/dashboard">Dashboard</a>
                             <a class="dropdown-item" href="/profile">Profile</a>
+                            <a class="dropdown-item" href="/fans">Fans</a>
                             <a class="dropdown-item" href="/dashboard/settings">Settings</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();

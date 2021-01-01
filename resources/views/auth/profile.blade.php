@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('hero')
-    <div class="container-fluid hero-section p-5" style="background:#EEE url({{\App\Utilities\CDN::get_media($user->id, $user->cover_photo)}}) no-repeat center; background-size:cover;">
+    <div class="container-fluid hero-section p-5" style="background:#EEE url({{\App\Utilities\CDN::get_media(null, $user->settings['profile_settings']['cover_image'])}}) no-repeat center; background-size:cover;">
         <div class="col-12 d-flex justify-content-center">
-            <img src="{{\App\Utilities\CDN::get_media($user->id, $user->profile_image)
+
+            <img src="{{\App\Utilities\CDN::get_media(null, $user->settings['profile_settings']['profile_image'])
                 ?? 'https://via.placeholder.com/50'}}"
                  class="ml-1 rounded-circle m-0 p-0"
                  height="300px"
@@ -10,13 +11,13 @@
             />
         </div>
         <div class="col-12 d-flex justify-content-center">
-            <h1>{{$user->username}}</h1>
+            <h1 style="color:{{$user->settings['profile_settings']['header_text_color']}};">{{$user->username}}</h1>
         </div>
         <div class="p-1 col-12 d-flex justify-content-center">
             <span style="color:#fff;" class="badge badge-pill {{$user->role == 0 ? 'badge-info' : 'badge-danger'}}">{{$user->role == 0 ? 'Member' : 'Administrator'}}</span>
         </div>
         <div class="col-12 d-flex justify-content-center">
-            <p>
+            <p style="color:{{$user->settings['profile_settings']['header_text_color']}};">
                 {{$user->bio}}
             </p>
         </div>

@@ -10,16 +10,27 @@
                 <form action="{{route('settings.profile')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
+                        <h5>Header images</h5>
                         <label for="profile_image">Profile Image</label>
                         <input type="file" class="form-control-file" name="profile_image" value="{{$user->email}}">
                     </div>
 
                     <div class="form-group">
-                        <label for="cover_photo">Cover Photo</label>
-                        <input type="file" class="form-control-file" name="cover_photo">
+                        <label for="cover_image">Cover Image</label>
+                        <input type="file" class="form-control-file" name="cover_image">
+                    </div>
+                    <div class="form-group">
+                        <h5>Header text colour</h5>
+                        <label for="light">Light</label>
+                        <input type="radio" name="text_color" id="light" value="light">
+
+                        <label for="dark">Dark
+                        <input type="radio" name="text_color" id="dark" value="dark">
+                        </label>
                     </div>
 
                     <div class="form-group">
+{{--                        WYSIWYG EDITOR HERE --}}
                         <label for="bio">Bio (<span class="bioWordCount">300</span>/300)</label>
                         <textarea
                             name="bio"

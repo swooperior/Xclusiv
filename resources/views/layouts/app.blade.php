@@ -12,6 +12,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+    @yield('head_scripts')
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -20,6 +22,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @yield('body_top_scripts')
     @include('layouts.inc.nav')
     @yield('hero')
     <main>
@@ -27,5 +30,6 @@
             @yield('content')
         </div>
     </main>
+    @yield('body_bottom_scripts')
 </body>
 </html>

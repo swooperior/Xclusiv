@@ -20,8 +20,6 @@ class PostsController extends Controller
     }
 
     public function new(Request $request){
-        //if get request
-
         return(view('posts.upload'));
     }
 
@@ -31,6 +29,7 @@ class PostsController extends Controller
         $file = null;
         $privacy = $request->get('privacy');
         $file = $request->file('file');
+
         if(!is_null($file)){
             $file_loc = CDN::upload_media($user->id, $file);
             $post->uri = $file_loc;
@@ -38,8 +37,8 @@ class PostsController extends Controller
         if(!is_null($request->get('title'))){
             $post->title = $request->get('title');
         }
-        if(!is_null($request->get('body'))){
-            $post->body = $request->get('body');
+        if(!is_null($request->get('body_text'))){
+            $post->body = $request->get('body_text');
         }
         $post->owner = $user->id;
         $post->privacy = $privacy;
