@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\User;
+use App\Models\Post;
 use Closure;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -36,7 +37,11 @@ class AccountSettings
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
+        $post = Post::where('id', $request->id)->first();
         $profile = User::where('username',$request->username)->first();
+        if(!is_null($post)){
+            $profile = User::where('id', $post->owner)->first();
+        }
         if(is_null($profile)){
             $profile = Auth::user();
         }

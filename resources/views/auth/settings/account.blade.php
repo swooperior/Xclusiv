@@ -25,23 +25,19 @@
 
 
                             <div class="col-md-6">
-                            <label for="updated_email">New Email Address</label>
-                            <input type="text" class="form-control" name="updated_email" id="updated_email">
-                            <label for="v_updated_email">Verify New Email Address</label>
-                            <input type="text" class="form-control" name="v_updated_email" id="v_updated_email">
+                                <h5>Update Email</h5>
+                                <label for="updated_email">New Email Address</label>
+                                <input type="text" class="form-control email_input" name="updated_email" id="updated_email">
+                                <label for="v_updated_email">Verify New Email Address</label>
+                                <input type="text" class="form-control email_input" name="v_updated_email" id="v_updated_email">
+                                <span id="email_validation"><p>Both email fields must match exactly!</p></span>
                             </div>
                             <div class="col-md-6">
-                            <label for="updated_password">New Password</label>
-                            <input type="password" class="form-control" name="updated_password" id="updated_password">
-                            <label for="v_updated_password">New Password</label>
-                            <input type="password" class="form-control" name="v_updated_password" id="v_updated_password">
+                                <h5>Reset Password</h5>
+                                <a href="/password/reset" class="btn btn-danger">Reset Password</a>
                             </div>
                             </div>
                         </div>
-                    </div>
-
-
-
                     </div>
 
                     <div class="d-flex flex-row-reverse">
@@ -56,26 +52,56 @@
 @section('body_bottom_scripts')
     <script>
         $( document).ready(function(){
-        //Handle account_visibility checkbox
-        const $vis_attri = $('#account_visibility');
-        const $vis_input = $('#vis_check');
+            //Handle account_visibility checkbox
+            const $vis_attri = $('#account_visibility');
+            const $vis_input = $('#vis_check');
 
-        const hidden_checked = function(){
-            if($vis_input.is(':checked')){
-                $vis_attri.val(0);
-                return true;
-            }else{
-                $vis_attri.val(1);
-                return false;
+            const hidden_checked = function(){
+                if($vis_input.is(':checked')){
+                    $vis_attri.val(0);
+                    return true;
+                }else{
+                    $vis_attri.val(1);
+                    return false;
+                }
             }
-        }
 
-        $vis_input.on('change', function(){
+            $vis_input.on('change', function(){
+                hidden_checked();
+            });
             hidden_checked();
-        });
-        hidden_checked();
-        //End account_visibilty
+            //End account_visibilty
 
+            // Handle email validation
+            const $email_input = $('.email_input');
+            const $v_email = $('#v_updated_email');
+            const $email_validation = $('#email_validation');
+            $email_validation.hide();
+
+            $email_input.each(function(self){
+                $( this ).on('input', function(){
+                    if($(this).val().length > 0){
+                        if($(this).is('#updated_email')){
+                            $v_email.attr('required', 'true');
+                            if($(this).val() != $v_email.val()){
+                                $email_validation.show();
+                            } else{
+                                $email_validation.hide();
+                            }
+                        }else{
+                            $v_email.attr('required', 'false');
+                            if($(this).val() != $('#updated_email').val()){
+                                $email_validation.show();
+                            } else{
+                                $email_validation.hide();
+                            }
+                        }
+
+                    }else{
+                        $email_validation.hide();
+                    }
+                });
+            });
         });
     </script>
 @endsection

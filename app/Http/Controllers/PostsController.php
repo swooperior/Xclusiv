@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    public function index(){
 
+    public function __construct(){
+        $this->middleware('account.settings');
     }
 
     public function single($id){
@@ -46,6 +47,6 @@ class PostsController extends Controller
 
         $post->save();
 
-        return(view('posts.upload'));
+        return(view('posts.upload')->with(['user' => $user]));
     }
 }
