@@ -7,7 +7,7 @@
                 <h2>Account Settings</h2>
             </div>
             <div class="card-body">
-                <form action="{{route('settings.profile')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('settings.account')}}" method="POST" enctype="multipart/form-data">
                     @csrf
 
 

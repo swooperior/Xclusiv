@@ -4,6 +4,7 @@ namespace App\View\Components\Feed;
 
 use Illuminate\View\Component;
 use App\Models\Post as PostModel;
+use App\Models\User;
 
 class Post extends Component
 {
@@ -13,6 +14,7 @@ class Post extends Component
      * @var \App\Models\Post
      */
     public $post;
+    public $owner;
 
     /**
      * Create a new component instance.
@@ -22,6 +24,7 @@ class Post extends Component
     public function __construct(int $id)
     {
         $this->post = PostModel::where('id', $id)->first();
+        $this->owner = User::where('id', $this->post->owner)->first();
     }
 
     /**
@@ -31,6 +34,6 @@ class Post extends Component
      */
     public function render()
     {
-        return view('components.feed.post', ['post' => $this->post]);
+        return view('components.feed.post', ['post' => $this->post, 'owner' => $this->owner]);
     }
 }

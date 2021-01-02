@@ -28,7 +28,16 @@
                 <div class="card">
                     <h5 class="card-header">Recent Fans</h5>
                     <div class="card-body">
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+                        @php($data['fans'] = array_reverse($data['fans']))
+                        @foreach($data['fans'] as $fan)
+                            @php($fan = \App\Models\User::where('id',$fan)->first())
+
+                            {{--                        Replace with user component--}}
+                            {{$fan->username}}
+                            {{--                        End replace--}}
+                        @endforeach
+
 
                     </div>
                 </div>

@@ -21,11 +21,18 @@ class Post extends Model
 
     public function visible(){
         $visible = false;
+        $isAdmin = false;
+        $isOwner  = false;
+        $isPurchased = false;
+        $isWhitelisted = false;
 
-        $isAdmin = Auth::user()->role == 1;
-        $isOwner = Auth::user()->id == $this->owner;
-        $isWhitelisted = in_array(Auth::user()->id, User::where('id',$this->owner)->first()->whitelist);
-        $isPurchased = !is_null(Payment::where('content_id',$this->id)->where('user_id', Auth::user()->id)->first());
+        if(Auth::check()){
+            $isAdmin = Auth::user()->role == 1;
+            $isOwner = Auth::user()->id == $this->owner;
+            $isWhitelisted = in_array(Auth::user()->id, User::where('id',$this->owner)->first()->whitelist);
+            $isPurchased = !is_null(Payment::where('content_id',$this->id)->where('user_id', Auth::user()->id)->first());
+
+        }
 
         switch($this->privacy){
             case(0): //Exclusive Content must be in whitelist
@@ -40,7 +47,7 @@ class Post extends Model
             default:
                 break;
         }
-        return $isAdmin || $visible || $isOwner;
+        return $visible || $isAdmin || $isOwner;
     }
 
 

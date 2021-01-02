@@ -21,7 +21,6 @@ class User extends Authenticatable
         'password',
         'whitelist',
         'settings',
-        'profle_image',
     ];
 
     /**
@@ -42,7 +41,6 @@ class User extends Authenticatable
     protected $attributes = [
         'settings' => '{}',
         'whitelist' => '{}',
-        'profile_image' => 'null',
     ];
 
     protected $casts = [

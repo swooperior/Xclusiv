@@ -16,10 +16,10 @@
         <div class="p-1 col-12 d-flex justify-content-center">
             <span style="color:#fff;" class="badge badge-pill {{$user->role == 0 ? 'badge-info' : 'badge-danger'}}">{{$user->role == 0 ? 'Member' : 'Administrator'}}</span>
         </div>
-        <div class="col-12 d-flex justify-content-center">
-            <p style="color:{{$user->settings['profile_settings']['header_text_color']}};">
-                {{$user->bio}}
-            </p>
+        <div class="col-12 d-flex justify-content-center" style="color:{{$user->settings['profile_settings']['header_text_color']}}!important;">
+            <div style="text-align:center;">
+                {!! strip_tags($user->bio, '<p></p>') !!}
+            </div>
         </div>
     </div>
 @endsection

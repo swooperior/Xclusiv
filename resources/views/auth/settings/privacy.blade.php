@@ -7,7 +7,7 @@
                 <h2>Privacy Settings</h2>
             </div>
             <div class="card-body">
-                <form action="{{route('settings.profile')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('settings.privacy')}}" method="POST" enctype="multipart/form-data">
                     @csrf
 
 
@@ -19,34 +19,5 @@
     </div>
     </div>
 
-@endsection
-        @section('body_bottom_scripts')
-            <script>
-                var $ckeditor = ClassicEditor
-                    .create( document.querySelector( '#bio' ) )
-                    .catch( error => {
-                        console.error( error );
-                    } );
-            </script>
-
-            <script>
-                var $wc = $('.bioWordCount');
-                var $bio = $('.bio');
-
-
-                $( document ).ready(function(){
-                    $bio.on('change input', function(){
-                        bioWordCount();
-                    });
-                    bioWordCount();
-                });
-                //Update the remaining character limit
-                function bioWordCount(){
-                    var max = 300;
-                    var count = $bio.val().length;
-
-                    $wc.html(count);
-                }
-            </script>
 @endsection
 

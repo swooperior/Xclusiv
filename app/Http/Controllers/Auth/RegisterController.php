@@ -65,13 +65,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $settings = UserAttributes::$settings;
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'whitelist' => [],
-            'settings' => UserAttributes::$settings,
-            'profile_image' => null,
+            'settings' => $settings,
         ]);
     }
 }

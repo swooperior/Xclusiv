@@ -67,17 +67,14 @@ Route::prefix('fans')->group(function() {
 });
 /* End of fans routes */
 
+/* Error Routes */
+Route::prefix('error')->group(function (){
+   Route::get('/restricted', [ErrorController::class, 'restricted'])->name('error.restricted');
+});
+
 //ToDo;
 //Settings routes
 //Whitelist user route
 //Payment Routes
 //Upload Routes
 //Report Routes
-
-
-
-
-/* Error Routes */
-Route::prefix('error')->group(function (){
-   Route::get('/restricted', [ErrorController::class, 'restricted'])->name('error.restricted');
-});

@@ -21,7 +21,7 @@ class RestrictedContent
         if(!is_null($user)){
             (array)$whitelist = $user->whitelist;
             if(!in_array($user->id, $whitelist)){
-                return redirect(route('error.restricted'));
+                return redirect(route('errors.restricted'));
             }
         }
 
