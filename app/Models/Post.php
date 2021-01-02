@@ -19,7 +19,7 @@ class Post extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function visible(){
+    public function visible($admin=false){
         $visible = false;
         $isAdmin = false;
         $isOwner  = false;
@@ -33,6 +33,8 @@ class Post extends Model
             $isPurchased = !is_null(Payment::where('content_id',$this->id)->where('user_id', Auth::user()->id)->first());
 
         }
+        //Overrides here
+        $isAdmin = $admin;
 
         switch($this->privacy){
             case(0): //Exclusive Content must be in whitelist

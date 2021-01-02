@@ -18,8 +18,11 @@ class ProfileController extends Controller
 
     public function index(Request $request){
         $user = User::where('username',$request->username)->first();
-        if(is_null($user)){
+        if(is_null($request->username)){
             $user = Auth::user();
+        }
+        if(is_null($user)){
+            return abort(404);
         }
 
         $products = Post::where('privacy', 2)

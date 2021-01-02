@@ -12,12 +12,32 @@
                     <div class="col-md-12">
                     <div class="form-group">
                         <h4 >Account visibility</h4>
-                        <input class="form-check-input" type="checkbox" name="vis_check" id="vis_check" value="0" {{$user->settings['account_settings']['account_visibility'] == 0 ? 'checked' : ''}}>
+                        <input type="checkbox" name="vis_check" id="vis_check" value="0" {{$user->settings['account_settings']['account_visibility'] == 0 ? 'checked' : ''}}>
                         <input type="hidden" id="account_visibility" name="account_visibility" value="{{$user->settings['account_settings']['account_visibility']}}">
                         <label class="form-check-label" for="vis_check">
                             Hide my account, Account will be unavailable to everyone.
                         </label>
                     </div>
+                        <hr>
+                        <div class="form-group">
+                            <h4>Account Details</h4>
+                            <div class="row">
+
+
+                            <div class="col-md-6">
+                            <label for="updated_email">New Email Address</label>
+                            <input type="text" class="form-control" name="updated_email" id="updated_email">
+                            <label for="v_updated_email">Verify New Email Address</label>
+                            <input type="text" class="form-control" name="v_updated_email" id="v_updated_email">
+                            </div>
+                            <div class="col-md-6">
+                            <label for="updated_password">New Password</label>
+                            <input type="password" class="form-control" name="updated_password" id="updated_password">
+                            <label for="v_updated_password">New Password</label>
+                            <input type="password" class="form-control" name="v_updated_password" id="v_updated_password">
+                            </div>
+                            </div>
+                        </div>
                     </div>
 
 

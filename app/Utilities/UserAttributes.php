@@ -20,6 +20,7 @@ class UserAttributes{
         ],
         'privacy_settings' => [
             'region_lock' => 0,
+            'excluded_locations' => [],
             'default_post_visibility' => 0,
             'secret_mode' => 0,
         ],

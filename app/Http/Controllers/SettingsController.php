@@ -88,9 +88,37 @@ class SettingsController extends Controller
 
     public function privacy(Request $request){
         $user = Auth::user();
-
+        $updatedSettings = $user->settings;
+        $regionLock = $request->get('region_lock');
+        $regionSelect = $request->get('region_select');
+        $del_array = $request->get('del_chk');
         if($request->getMethod() == 'POST'){
             //Handle saving settings
+            if(!is_null($regionLock)){
+                $updatedSettings['privacy_settings']['region_lock'] = $regionLock;
+                if(!isset($updatedSettings['privacy_settings']['excluded_locations'])){
+                    $updatedSettings['privacy_settings']['excluded_locations'] = [];
+                }
+
+                if(!is_null($regionSelect)){
+                    array_push($updatedSettings['privacy_settings']['excluded_locations'],$regionSelect);
+                }
+                if(!is_null($del_array)){
+
+                    foreach($del_array as $item => $location){
+                        $key = array_search($location, $updatedSettings['privacy_settings']['excluded_locations']);
+
+                        if($key !== false){
+                            unset($updatedSettings['privacy_settings']['excluded_locations'][$key]);
+                        }
+                    }
+                }
+            }
+            $user->settings = $updatedSettings;
+            //dd($updatedSettings);
+            $user->save();
+            $message = 'Settings updated successfully.';
+            return view('auth.settings.privacy')->with(['user' => $user, 'message' => $message]);
         }else{
             return view('auth.settings.privacy')->with(['user' => $user]);
         }
