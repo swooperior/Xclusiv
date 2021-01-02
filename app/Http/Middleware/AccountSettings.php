@@ -61,7 +61,7 @@ class AccountSettings
         $data = json_decode((string) $response->getBody(), true);
         //Change to NOT localhost when done testing.
         if($this->isLocalhost()){
-            if($profile->settings['privacy_settings']['region_lock'] == 1){
+            if($user != $profile && $profile->settings['privacy_settings']['region_lock'] == 1){
                 if(isset($profile->settings['privacy_settings']['excluded_locations']) && is_array($profile->settings['privacy_settings']['excluded_locations'])){
                     $excluded_locations = $profile->settings['privacy_settings']['excluded_locations'];
                     foreach($data as $key => $location){

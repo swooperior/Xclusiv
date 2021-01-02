@@ -31,9 +31,9 @@
                     <div class="form-group col">
                         <label for="privacy">Privacy Setting </label>
                             <select id="privacy" name="privacy">
-                                <option value="0">Exclusive</option>
-                                <option value="1">Public</option>
-                                <option value="2">Purchasable</option>
+                                <option value="0" {{$user->settings['privacy_settings']['default_post_visibility'] == 0 ? 'selected' : ''}}>Exclusive</option>
+                                <option value="1" {{$user->settings['privacy_settings']['default_post_visibility'] == 1 ? 'selected' : ''}}>Public</option>
+                                <option value="2" {{$user->settings['privacy_settings']['default_post_visibility'] == 2 ? 'selected' : ''}}>Purchasable</option>
                             </select>
                     </div>
                     <div class="form-group col" id="content-price">

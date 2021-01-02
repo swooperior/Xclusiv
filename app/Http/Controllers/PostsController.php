@@ -20,7 +20,8 @@ class PostsController extends Controller
     }
 
     public function new(Request $request){
-        return(view('posts.upload'));
+        $user = Auth::user();
+        return(view('posts.upload')->with(['user' => $user]));
     }
 
     public function upload(Request $request){

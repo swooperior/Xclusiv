@@ -93,29 +93,34 @@ class SettingsController extends Controller
         $regionSelect = $request->get('region_select');
         $del_array = $request->get('del_chk');
         if($request->getMethod() == 'POST'){
-            //Handle saving settings
+            //Region Lock
             if(!is_null($regionLock)){
                 $updatedSettings['privacy_settings']['region_lock'] = $regionLock;
                 if(!isset($updatedSettings['privacy_settings']['excluded_locations'])){
                     $updatedSettings['privacy_settings']['excluded_locations'] = [];
                 }
 
+                //Adding regions to block
                 if(!is_null($regionSelect)){
                     array_push($updatedSettings['privacy_settings']['excluded_locations'],$regionSelect);
                 }
+                //Removing blocked regions
                 if(!is_null($del_array)){
-
                     foreach($del_array as $item => $location){
                         $key = array_search($location, $updatedSettings['privacy_settings']['excluded_locations']);
-
                         if($key !== false){
                             unset($updatedSettings['privacy_settings']['excluded_locations'][$key]);
                         }
                     }
                 }
             }
+
+            if(!is_null($request->get('default_post_visibility'))){
+                $updatedSettings['privacy_settings']['default_post_visibility'] = $request->get('default_post_visibility');
+            }
+
+
             $user->settings = $updatedSettings;
-            //dd($updatedSettings);
             $user->save();
             $message = 'Settings updated successfully.';
             return view('auth.settings.privacy')->with(['user' => $user, 'message' => $message]);
