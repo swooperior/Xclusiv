@@ -47,6 +47,19 @@ class Post extends Model
             default:
                 break;
         }
+
+        /* Overrides
+        *
+        *
+        */
+
+        //Account visibilty override.
+        $owner = User::where('id', $this->owner)->first();
+        if($owner->settings['account_settings']['account_visibility'] == 0){
+            $visible = false;
+        }
+
+
         return $visible || $isAdmin || $isOwner;
     }
 

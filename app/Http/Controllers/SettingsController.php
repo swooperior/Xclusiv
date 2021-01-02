@@ -61,10 +61,25 @@ class SettingsController extends Controller
     }
 
     public function account(Request $request){
+        //ToDo; Modify so function can be accessed for given user by adminsitrator to update details.
         $user = Auth::user();
 
         if($request->getMethod() == 'POST'){
-            //Handle saving settings
+            $updatedSettings = $user->settings;
+            $settings = [
+                'account_visibility' => $request->get('account_visibility'),
+                'email_settings' => $request->get('email_settings'),
+                'tracking_settings' => $request->get('tracking_settings'),
+            ];
+
+            foreach($settings as $setting => $value){
+                if(!is_null($value)){
+                    $updatedSettings['account_settings'][$setting] = $value;
+                }
+            }
+            $user->settings = $updatedSettings;
+            $user->save();
+            return view('auth.settings.account')->with(['user' => $user, 'message' => 'Settings updated successfully.']);
         }else{
             return view('auth.settings.account')->with(['user' => $user]);
         }

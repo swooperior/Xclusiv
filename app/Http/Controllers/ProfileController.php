@@ -13,7 +13,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         //ToDo; Custom middleware based on privacy settings.
-        //$this->middleware('auth');
+        $this->middleware('account.settings');
     }
 
     public function index(Request $request){

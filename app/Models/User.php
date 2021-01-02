@@ -52,4 +52,12 @@ class User extends Authenticatable
     public function posts(){
         $this->hasMany('\App\Models\Post');
     }
+
+    //ToDo; Change this to actually use roles table.
+    public function isAdmin(){
+        if($this->role == 1){
+            return true;
+        }
+        return false;
+    }
 }
