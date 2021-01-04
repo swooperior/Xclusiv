@@ -31,8 +31,8 @@ class HomeController extends Controller
         $feed_posts = [];
         foreach($posts as $post){
             $owner = User::where('id',$post->owner)->first();
-            if($owner->settings['privacy_settings']['region_lock'])
             if($post->visible()){
+                //ToDo; Add check to see if current request region is in owner's restricted regions.
                 array_push($feed_posts,$post);
             }
         }

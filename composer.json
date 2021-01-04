@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "swooperior/xclusiv",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Share content with fans Xclusivly.",
     "keywords": [
         "framework",
         "laravel"
