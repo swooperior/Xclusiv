@@ -20,7 +20,7 @@ class AccountSettings
      * @return mixed
      */
 
-    public function isLocalhost(){
+    public static function isLocalhost(){
         $whitelist = [
             '127.0.0.1',
             'localhost',
@@ -66,11 +66,12 @@ class AccountSettings
         $data = json_decode((string) $response->getBody(), true);
         //Change to NOT localhost when done testing.
         if($this->isLocalhost()){
-            if($user != $profile && $profile->settings['privacy_settings']['region_lock'] == 1){
+            if(!$user->isAdmin() && $user != $profile && $profile->settings['privacy_settings']['region_lock'] == 1){
                 if(isset($profile->settings['privacy_settings']['excluded_locations']) && is_array($profile->settings['privacy_settings']['excluded_locations'])){
                     $excluded_locations = $profile->settings['privacy_settings']['excluded_locations'];
                     foreach($data as $key => $location){
                         if(in_array($location, $excluded_locations)){
+                            //Return Generic 404
                             return abort(404);
                         }
                     }

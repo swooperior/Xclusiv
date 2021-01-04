@@ -26,9 +26,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             @foreach($posts as $post)
-                                @if($post->visible())
                                     <x-feed.post id="{{ $post->id }}" />
-                                @endif
                             @endforeach
                         </div>
                     </div>

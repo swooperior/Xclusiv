@@ -16,7 +16,7 @@ class Post extends Model
     //2 = Public (Viewable by guests (Non-logged-in users))
 
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class, 'owner');
     }
 
     public function visible($admin=false){
@@ -25,16 +25,16 @@ class Post extends Model
         $isOwner  = false;
         $isPurchased = false;
         $isWhitelisted = false;
+        $ownerUser = User::where('id',$this->owner)->first();
 
         if(Auth::check()){
-            $isAdmin = Auth::user()->role == 1;
+            if($admin){
+                $isAdmin = Auth::user()->role == 1;
+            }
             $isOwner = Auth::user()->id == $this->owner;
-            $isWhitelisted = in_array(Auth::user()->id, User::where('id',$this->owner)->first()->whitelist);
+            $isWhitelisted = in_array(Auth::user()->id, $ownerUser->whitelist);
             $isPurchased = !is_null(Payment::where('content_id',$this->id)->where('user_id', Auth::user()->id)->first());
-
         }
-        //Overrides here
-        $isAdmin = $admin;
 
         switch($this->privacy){
             case(0): //Exclusive Content must be in whitelist
@@ -47,6 +47,7 @@ class Post extends Model
                 $visible = $isPurchased;
                 break;
             default:
+                $visible = false;
                 break;
         }
 
@@ -55,15 +56,30 @@ class Post extends Model
         *
         */
 
-        //Account visibilty override.
-        $owner = User::where('id', $this->owner)->first();
-        if($owner->settings['account_settings']['account_visibility'] == 0){
+
+
+        //ToDo; Region locking post at model level;
+        if($ownerUser->settings['privacy_settings']['region_lock'] == 1){
+            if(is_array($ownerUser->settings['privacy_settings']['excluded_locations']) && count($ownerUser->settings['privacy_settings']['excluded_locations']) > 0){
+                $excluded_locations = $ownerUser->settings['privacy_settings']['excluded_locations'];
+                $ip_data = session('ip_data');
+                foreach($ip_data as $key => $location){
+                    if(in_array($location, $excluded_locations)){
+                        $visible = false;
+                    }
+                }
+            }
+        }
+
+
+        //Account Settings overrides:
+        if($ownerUser->settings['account_settings']['account_visibility'] == 0){
             $visible = false;
         }
 
 
+
         return $visible || $isAdmin || $isOwner;
+
     }
-
-
 }

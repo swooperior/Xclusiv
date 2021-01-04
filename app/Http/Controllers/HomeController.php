@@ -26,16 +26,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $posts = Post::all()->take('300')->sortByDesc('id');
         $feed_posts = [];
         foreach($posts as $post){
-            $owner = User::where('id',$post->owner)->first();
-            if($post->visible()){
-                //ToDo; Add check to see if current request region is in owner's restricted regions.
+            if($post->visible() === true){
                 array_push($feed_posts,$post);
             }
         }
+
         return view('auth.dashboard', ['posts' => $feed_posts]);
     }
 }
