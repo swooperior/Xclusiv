@@ -65,7 +65,7 @@ class AccountSettings
         $response = $client->request('GET', $url);
         $data = json_decode((string) $response->getBody(), true);
         //Change to NOT localhost when done testing.
-        if($this->isLocalhost()){
+//        if($this->isLocalhost()){
             if(!$user->isAdmin() && $user != $profile && $profile->settings['privacy_settings']['region_lock'] == 1){
                 if(isset($profile->settings['privacy_settings']['excluded_locations']) && is_array($profile->settings['privacy_settings']['excluded_locations'])){
                     $excluded_locations = $profile->settings['privacy_settings']['excluded_locations'];
@@ -83,7 +83,7 @@ class AccountSettings
             if (array_key_exists('security', $data)) {
                 return $data['security']['threat_level'] === 'high' ? abort(403) : $next($request);
             }
-        }
+//        }
 
         //Bypass everything !!THIS IS BAD!!
         return $next($request);

@@ -1,7 +1,7 @@
 @php($user = $user ?? \Illuminate\Support\Facades\Auth::user())
 
 @extends('layouts.app')
-
+@section('title', "Fans - ".$user->username)
 @section('content')
     <div class="container">
         <div class="row">

@@ -62,10 +62,12 @@ class Post extends Model
         if($ownerUser->settings['privacy_settings']['region_lock'] == 1){
             if(is_array($ownerUser->settings['privacy_settings']['excluded_locations']) && count($ownerUser->settings['privacy_settings']['excluded_locations']) > 0){
                 $excluded_locations = $ownerUser->settings['privacy_settings']['excluded_locations'];
-                $ip_data = session('ip_data');
-                foreach($ip_data as $key => $location){
-                    if(in_array($location, $excluded_locations)){
-                        $visible = false;
+                if(!is_null(session('ip_data'))){
+                    $ip_data = session('ip_data');
+                    foreach($ip_data as $key => $location){
+                        if(in_array($location, $excluded_locations)){
+                            $visible = false;
+                        }
                     }
                 }
             }

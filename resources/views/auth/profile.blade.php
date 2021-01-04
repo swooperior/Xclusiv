@@ -55,7 +55,7 @@
                 )
                 @if(!is_null($posts))
                     @foreach($posts as $post)
-                        @if($post->visible())
+                        @if($post->visible(true))
                             <x-feed.post id="{{ $post->id }}" />
                         @endif
                     @endforeach
