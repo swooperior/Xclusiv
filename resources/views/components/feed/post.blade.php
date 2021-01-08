@@ -1,10 +1,12 @@
 <div class="col-md-12 mb-2">
 
-        <div class="card">
+        <div class="card" id="{{!is_null($post) ? 'post-'.$post->id : ''}}">
 
             @if(!is_null($post->uri))
-                <a href="{{route('single-post', $post->id)}}">
-                <img class="{{(is_null($post->title) && is_null($post->body)) ? 'img-fluid' : 'card-img-top'}}" src="{{ \App\Utilities\CDN::get_media(null,$post->uri) }}">
+                <a href="#" data-featherlight="#{{'post-'.$post->id}}">
+                    <img class="{{(is_null($post->title) && is_null($post->body)) ? 'img-fluid' : 'card-img-top'}}"
+                         id="{{$post->id}}"
+                         src="{{ \App\Utilities\CDN::get_media(null,$post->uri) }}">
                 </a>
             @endif
             <div class="card-body">
