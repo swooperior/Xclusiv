@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <ul>
+                            <ul class="nav">
                                 <li>
                                     Option
                                 </li>

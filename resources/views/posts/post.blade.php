@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @if($post != null)
-        @if($post->visible())
+        @if($post->visible(true))
             <div class="row">
                 <div class="col-md-6">
                     <img class="img-fluid" src="{{\App\Utilities\CDN::get_media(null, $post->uri)}}">

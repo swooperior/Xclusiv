@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +31,40 @@ class FansController extends Controller
     }
 
     public function grant(Request $request){
+        $user = Auth::user();
+        $whitelist = $user->whitelist;
 
+
+        if($request->getMethod('POST')){
+            $message = null;
+            $error = null;
+            $fan = User::where('username', $request->get('fan'))->first();
+            if(!is_null($fan)) {
+                $whitelist = is_array($user->whitelist) ? $user->whitelist : [];
+                if (!in_array($fan->id, $whitelist)) {
+                    if ($fan->id != $user->id) {
+                        array_push($whitelist, $fan->id);
+                        $user->whitelist = $whitelist;
+                        $user->save();
+                        $message = 'Access granted to ' . $fan->username . ' successfully.';
+                    } else {
+                        $error = 'You cannot be a fan of yourself... sorry!';
+                    }
+                } else {
+                    $error = 'Error: This user is already your fan.';
+                }
+
+            }else{
+                $error = 'No account with that name was found.';
+            }
+        }
+
+
+        $data = [
+            'user' => $user,
+            'whitelist' => $whitelist,
+        ];
+        return view('fans.grant', ['data' => $data, 'message' => $message, 'error' => $error]);
     }
 
     public function revoke(Request $request){

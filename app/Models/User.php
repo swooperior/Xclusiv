@@ -21,6 +21,7 @@ class User extends Authenticatable
         'password',
         'whitelist',
         'settings',
+        'settings->account_settings->account_visibility'
     ];
 
     /**

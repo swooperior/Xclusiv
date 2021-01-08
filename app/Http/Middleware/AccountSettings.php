@@ -39,6 +39,10 @@ class AccountSettings
         $user = Auth::user();
         $post = Post::where('id', $request->id)->first();
         $profile = User::where('username',$request->username)->first();
+
+        if(is_null($user)){
+            abort(403);
+        }
         if(!is_null($post)){
             $profile = User::where('id', $post->owner)->first();
         }
@@ -48,9 +52,13 @@ class AccountSettings
         $account_visibility = $profile->settings['account_settings']['account_visibility'];
         //Restrict content if account visibility is 0, logged in user is not an admin and the profile does not belong
         //to logged in user.
-        if(!$user->isAdmin() && !($user == $profile) && $account_visibility == 0){
+
+
+        if(!$user->isAdmin() && !($user === $profile) && $account_visibility == 0){
             abort(403);
         }
+
+
 
 
         $ip = $request->ip();
@@ -66,7 +74,7 @@ class AccountSettings
         $data = json_decode((string) $response->getBody(), true);
         //Change to NOT localhost when done testing.
 //        if($this->isLocalhost()){
-            if(!$user->isAdmin() && $user != $profile && $profile->settings['privacy_settings']['region_lock'] == 1){
+            if(!is_null($user) && !$user->isAdmin() && $user != $profile && $profile->settings['privacy_settings']['region_lock'] == 1){
                 if(isset($profile->settings['privacy_settings']['excluded_locations']) && is_array($profile->settings['privacy_settings']['excluded_locations'])){
                     $excluded_locations = $profile->settings['privacy_settings']['excluded_locations'];
                     foreach($data as $key => $location){

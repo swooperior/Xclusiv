@@ -3,3 +3,8 @@
         {{$message ?? null}}
     </div>
 @endif
+@if(isset($error) && !is_null($error))
+    <div class="alert alert-danger">
+        {{$error ?? null}}
+    </div>
+@endif

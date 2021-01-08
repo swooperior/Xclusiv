@@ -63,6 +63,7 @@ Route::prefix('posts')->group(function() {
 /* Fans Routes */
 Route::prefix('fans')->group(function() {
     Route::get('/',[FansController::class, 'main'])->name('fans.main');
+    Route::any('/grant',[FansController::class, 'grant'])->name('fans.grant');
     //Route::get('/{user}',[FansController::class, 'byuser'])->name('posts.user');
 });
 /* End of fans routes */

@@ -15,10 +15,8 @@
                         </div>
                         <div class="col-md-6">
                             <h5>Sales: {{count($data['sales'])}}</h5>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -30,14 +28,18 @@
                     <div class="card-body">
 
                         @php($data['fans'] = array_reverse($data['fans']))
+                        <ul class="list-group">
+
                         @foreach($data['fans'] as $fan)
                             @php($fan = \App\Models\User::where('id',$fan)->first())
 
                             {{--                        Replace with user component--}}
-                            {{$fan->username}}
+                            <li class="list-group-item">
+                                <a href="{{route('user.profile',$fan->username)}}">{{$fan->username}}</a>
+                            </li>
                             {{--                        End replace--}}
                         @endforeach
-
+                        </ul>
 
                     </div>
                 </div>
