@@ -14,20 +14,11 @@ class PostsController extends Controller
         $this->middleware('account.settings');
     }
 
-    public function single($id){
-        $post = Post::find($id);
-
-        return(view('posts.post',['post' => $post]));
-    }
-
-    public function new(Request $request){
+    public function upload(Request $request, $post=null){
         $user = Auth::user();
-        return(view('posts.upload')->with(['user' => $user]));
-    }
-
-    public function upload(Request $request){
-        $user = Auth::user();
-        $post = new Post();
+        if(is_null($post)){
+            $post = new Post();
+        }
         $file = null;
         $privacy = $request->get('privacy');
         $file = $request->file('file');
@@ -44,9 +35,43 @@ class PostsController extends Controller
         }
         $post->owner = $user->id;
         $post->privacy = $privacy;
-
         $post->save();
+    }
 
-        return(view('posts.upload')->with(['user' => $user]));
+    public function single($id){
+        $post = Post::find($id);
+
+        return(view('posts.post',['post' => $post]));
+    }
+
+
+
+    public function new(Request $request){
+        $user = Auth::user();
+        $error = null;
+        $message = null;
+        if($request->getMethod() == 'POST'){
+            $this->upload($request);
+            $message = 'Posted!';
+        }
+        return(view('posts.upload')->with(['user' => $user, 'message' => $message, 'error' => $error]));
+    }
+
+
+    public function edit(Request $request, $id){
+        $user = Auth::user();
+        $post = null;
+        $message = null;
+        $error = null;
+        $postId = $id;
+        if(!is_null($postId)){
+            $post = Post::where('id',$postId)->first();
+            if($request->getMethod() == 'POST'){
+                $this->upload($request, $post);
+                $message = 'Post saved!';
+            }
+        }
+
+        return view('posts.edit', ['user' => $user, 'post' => $post, 'message' => $message, 'error' => $error]);
     }
 }

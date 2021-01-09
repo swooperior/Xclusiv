@@ -4,6 +4,7 @@
 @section('title', "Fans - ".$user->username)
 @section('content')
     <div class="container">
+        <a href="{{route('fans.grant')}}" class="btn btn-primary">Manually add Fan</a>
         <div class="row">
         <div class="col-md-12">
             <div class="card mb-3">

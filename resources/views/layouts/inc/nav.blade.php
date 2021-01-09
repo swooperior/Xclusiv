@@ -12,7 +12,7 @@
             <ul class="navbar-nav mr-auto">
                 @guest
                 @else
-                    <a class="nav-link" href="{{ route('new') }}">{{ __('+ Post') }}</a>
+                    <a class="nav-link" href="{{ route('post.new') }}">{{ __('+ Post') }}</a>
                 @endguest
             </ul>
 

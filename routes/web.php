@@ -47,8 +47,8 @@ Route::prefix('profile')->group(function() {
 
 /* Post Routes */
 Route::prefix('post')->group(function() {
-    Route::get('/new',[PostsController::class, 'new'])->name('new');
-    Route::post('/new',[PostsController::class, 'upload'])->name('upload');
+    Route::get('/new',[PostsController::class, 'new'])->name('post.new');
+    Route::any('/edit/{id}',[PostsController::class, 'edit'])->name('post.edit');
     Route::get('/{id}',[PostsController::class, 'single'])->name('single-post');
 });
 /* End of post routes */

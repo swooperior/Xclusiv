@@ -22,7 +22,10 @@
                     </a>
                 @endif
                 @if(!is_null($post->body))
-                    <p class="card-text">{!! strip_tags($post->body, '<b><i><u><h1><h2><h3><h4><h5><p><table><li><tr><td><th>') !!}</p>
+                    <p class="card-text">{!! \Illuminate\Support\Str::limit(strip_tags($post->body, '<b><i><u><h1><h2><h3><h4><h5><p><table><li><tr><td><th>'), 150, $end='...') !!}</p>
+                @endif
+                @if($post->user == \Illuminate\Support\Facades\Auth::user())
+                    <a href="{{route('post.edit', $post->id) }}" class="btn btn-dark">Edit Post</a>
                 @endif
             </div>
         </div>

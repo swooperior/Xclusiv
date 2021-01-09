@@ -20,19 +20,10 @@
             </div>
         </div>
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Wall') }}</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            @foreach($posts as $post)
-                                    <x-feed.post id="{{ $post->id }}" />
-                            @endforeach
-                        </div>
-                    </div>
 
-                </div>
-            </div>
+            @foreach($posts as $post)
+                    <x-feed.post id="{{ $post->id }}" />
+            @endforeach
         </div>
 
     </div>

@@ -33,11 +33,11 @@ class FansController extends Controller
     public function grant(Request $request){
         $user = Auth::user();
         $whitelist = $user->whitelist;
+        $message = null;
+        $error = null;
 
+        if($request->getMethod() == 'POST'){
 
-        if($request->getMethod('POST')){
-            $message = null;
-            $error = null;
             $fan = User::where('username', $request->get('fan'))->first();
             if(!is_null($fan)) {
                 $whitelist = is_array($user->whitelist) ? $user->whitelist : [];

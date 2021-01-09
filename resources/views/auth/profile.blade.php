@@ -26,8 +26,8 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
+    <div class="container ">
+        <div class="row justify-content-center">
             <div class="col-md-4" id="gallery">
                 {{--                    {{ $user->getImages() }}--}}
 
@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <div class="col-md-8" id="wall">
+            <div class="col-md-6" id="wall">
                 @php($posts = \App\Models\Post::where('owner', $user->id)
                     ->orderBy('id', 'desc')
                     ->paginate(15)
